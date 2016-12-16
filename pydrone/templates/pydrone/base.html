@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title>Django Girls blog</title>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="page-header">
+    <h1><a href="/">Django Drone Project</a></h1>
+</div>
+
+<div class="content-fluid">
+    <div class="row">
+        <div class="col-md-2" >
+            <div class="panel panel-default"style="margin-left: 10px">
+                <!-- Default panel contents -->
+                <div class="panel-heading">FUCTION</div>
+
+                <!-- List group -->
+                <ul class="list-group"style="">
+                    <li class="list-group-item"><a href="http://127.0.0.1:8000/pydrone/online_plot">Online Plot</a></li>
+                    <li class="list-group-item"><a href="http://127.0.0.1:8000/pydrone/online_map">Online Map</a></li>
+                    <li class="list-group-item"><a href="http://127.0.0.1:8000/pydrone/offline_plot">Offline Plot</a></li>
+                    <li class="list-group-item"><a href="http://127.0.0.1:8000/pydrone/offline_map">Offline Map</a></li>
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-md-10" >
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

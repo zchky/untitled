@@ -1,0 +1,301 @@
+{% extends 'pydrone/base.html' %}
+{%  block content %}
+
+        <!DOCTYPE html>
+        <head>
+
+
+            <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+
+
+
+
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+
+
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+
+
+
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
+
+
+
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+
+
+
+
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+
+
+
+
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+
+
+
+
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css" />
+
+
+
+
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" />
+
+
+
+
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+
+
+
+
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css" />
+
+
+
+
+
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css" />
+
+
+
+
+
+            <link rel="stylesheet" href="https://raw.githubusercontent.com/python-visualization/folium/master/folium/templates/leaflet.awesome.rotate.css" />
+
+
+
+
+            <style>
+
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                }
+
+            #map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+
+
+            <style> #map_46b84c4c15504d278341029ee83f3d1c {
+                position : relative;
+                width : 100.0%;
+                height: 100.0%;
+                left: 0.0%;
+                top: 0.0%;
+                }
+            </style>
+
+
+
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-dvf/0.2/leaflet-dvf.markers.min.js"></script>
+
+
+
+
+        </head>
+        <body>
+
+
+
+            <div class="folium-map" id="map_46b84c4c15504d278341029ee83f3d1c" ></div>
+
+
+
+        </body>
+        <script>
+
+
+
+
+            var southWest = L.latLng(-90, -180);
+            var northEast = L.latLng(90, 180);
+            var bounds = L.latLngBounds(southWest, northEast);
+
+            var map_46b84c4c15504d278341029ee83f3d1c = L.map('map_46b84c4c15504d278341029ee83f3d1c', {
+                                           center:[45.5236,-122.675],
+                                           zoom: 13,
+                                           maxBounds: bounds,
+                                           layers: [],
+                                           crs: L.CRS.EPSG3857
+                                         });
+
+
+
+
+            var tile_layer_9b5a68bb74434bd4aa5e767511a5beb3 = L.tileLayer(
+                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                {
+                    maxZoom: 18,
+                    minZoom: 1,
+                    attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
+                    detectRetina: false
+                    }
+                ).addTo(map_46b84c4c15504d278341029ee83f3d1c);
+
+
+
+
+            var regular_polygon_marker_c877b1c210f2491aa8e87a6291bd0cec = new L.RegularPolygonMarker(
+                new L.LatLng(45.5012,-122.6655),
+                {
+                    icon : new L.Icon.Default(),
+                    color: 'black',
+                    opacity: 1,
+                    weight: 2,
+                    fillColor: '#132b5e',
+                    fillOpacity: 1,
+                    numberOfSides: 3,
+                    rotation: 0,
+                    radius: 10
+                    }
+                )
+                .addTo(map_46b84c4c15504d278341029ee83f3d1c);
+
+
+
+            var popup_d2b51ecc01a54f05906d926a01e77182 = L.popup({maxWidth: '300'});
+
+
+                var html_832160c64c4b490f93c4c31e712835dc = $('         <div id="html_832160c64c4b490f93c4c31e712835dc"                 style="width: 100.0%; height: 100.0%;">                 Ross Island Bridge</div>                 ')[0];
+                popup_d2b51ecc01a54f05906d926a01e77182.setContent(html_832160c64c4b490f93c4c31e712835dc);
+
+
+            regular_polygon_marker_c877b1c210f2491aa8e87a6291bd0cec.bindPopup(popup_d2b51ecc01a54f05906d926a01e77182);
+
+
+
+
+
+            var regular_polygon_marker_5bbf1621fcf54abea9fdb2f950b96ac6 = new L.RegularPolygonMarker(
+                new L.LatLng(45.5132,-122.6708),
+                {
+                    icon : new L.Icon.Default(),
+                    color: 'black',
+                    opacity: 1,
+                    weight: 2,
+                    fillColor: '#45647d',
+                    fillOpacity: 1,
+                    numberOfSides: 4,
+                    rotation: 0,
+                    radius: 10
+                    }
+                )
+                .addTo(map_46b84c4c15504d278341029ee83f3d1c);
+
+
+
+            var popup_7ca547b97c6340a7911c3ba0a24a2169 = L.popup({maxWidth: '300'});
+
+
+                var html_cc8970aa82ca4614b8a362b872e7f726 = $('         <div id="html_cc8970aa82ca4614b8a362b872e7f726"                 style="width: 100.0%; height: 100.0%;">                 Hawthorne Bridge</div>                 ')[0];
+                popup_7ca547b97c6340a7911c3ba0a24a2169.setContent(html_cc8970aa82ca4614b8a362b872e7f726);
+
+
+            regular_polygon_marker_5bbf1621fcf54abea9fdb2f950b96ac6.bindPopup(popup_7ca547b97c6340a7911c3ba0a24a2169);
+
+
+
+
+
+            var regular_polygon_marker_7c19e1a5c4e0471888e4386b41dcbc12 = new L.RegularPolygonMarker(
+                new L.LatLng(45.5275,-122.6692),
+                {
+                    icon : new L.Icon.Default(),
+                    color: 'black',
+                    opacity: 1,
+                    weight: 2,
+                    fillColor: '#769d96',
+                    fillOpacity: 1,
+                    numberOfSides: 6,
+                    rotation: 0,
+                    radius: 10
+                    }
+                )
+                .addTo(map_46b84c4c15504d278341029ee83f3d1c);
+
+
+
+            var popup_5039f5b5c7a54349a0f0a6486f99d475 = L.popup({maxWidth: '300'});
+
+
+                var html_f29122dec22f4afe8290cbbb008596ab = $('         <div id="html_f29122dec22f4afe8290cbbb008596ab"                 style="width: 100.0%; height: 100.0%;">                 Steel Bridge</div>                 ')[0];
+                popup_5039f5b5c7a54349a0f0a6486f99d475.setContent(html_f29122dec22f4afe8290cbbb008596ab);
+
+
+            regular_polygon_marker_7c19e1a5c4e0471888e4386b41dcbc12.bindPopup(popup_5039f5b5c7a54349a0f0a6486f99d475);
+
+
+
+
+
+            var regular_polygon_marker_481a6499b0c2433db390d322628278c1 = new L.RegularPolygonMarker(
+                new L.LatLng(45.5318,-122.6745),
+                {
+                    icon : new L.Icon.Default(),
+                    color: 'black',
+                    opacity: 1,
+                    weight: 2,
+                    fillColor: '#769d96',
+                    fillOpacity: 1,
+                    numberOfSides: 8,
+                    rotation: 0,
+                    radius: 10
+                    }
+                )
+                .addTo(map_46b84c4c15504d278341029ee83f3d1c);
+
+
+
+            var popup_8217f265d1bf48d2bbc5da5e071c87a3 = L.popup({maxWidth: '300'});
+
+
+                var html_f53500390132479a99023103a9054561 = $('         <div id="html_f53500390132479a99023103a9054561"                 style="width: 100.0%; height: 100.0%;">                 Broadway Bridge</div>                 ')[0];
+                popup_8217f265d1bf48d2bbc5da5e071c87a3.setContent(html_f53500390132479a99023103a9054561);
+
+
+            regular_polygon_marker_481a6499b0c2433db390d322628278c1.bindPopup(popup_8217f265d1bf48d2bbc5da5e071c87a3);
+
+
+
+
+
+        </script>
+
+{% endblock %}

@@ -1,0 +1,300 @@
+{% extends 'pydrone/base.html' %}
+
+
+{% block content %}
+    <script>
+        function myFc(){
+            alert("My First JavaScript");
+        }
+
+
+    </script>
+
+    <div class="content-fluid">
+        <div class="row" style="height: 70px;"hidden="hidden">
+            <div class="col-md-1" style="margin-left: 50px">
+
+                <div class="btn-group">
+                    <button onclick="myFc()" type="button" class="btn btn-default" >Left</button>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <select name="" id="sel" style="height: 35px;">
+
+                    　　<option value="0">select</option>
+
+                    　　<option value="1">line plot</option>
+
+                    　　<option value="2">histogram plot</option>
+
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <script type="text/javascript" src="https://cdn.goeasy.io/goeasy.js"></script>
+
+                <script type="text/javascript">
+
+
+                    var goEasy = new GoEasy({
+                        appkey:"5607ca4e-ad73-4860-8e81-6488c7d253e9",
+                        onConnected: function () {
+                            console.log("成功连接GoEasy。");
+                        },
+                        onDisconnected: function () {
+                            console.log("与GoEasy连接断开。");
+                        },
+                        onConnectFailed: function (error) {
+                            console.log("与GoEasy连接失败，错误编码："+error.code+"错误信息："+error.content);
+                        }
+                    });
+
+                    {#                          goEasy.publish({#}
+                    {#                        channel: 'demo_channel',#}
+                    {#                        message: 'Hello world!'#}
+                    {#                    });#}
+
+                </script>
+
+
+                {#                <div id="main-1" style="height: 400px" hidden="hidden"></div>#}
+                {#                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>#}
+                {#                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>#}
+                {#                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>#}
+                {#                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>#}
+                {#                <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>#}
+                {#                <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>#}
+                {#                <script type="text/javascript">#}
+                {#                    var dom = document.getElementById("main-1");#}
+                {#                    var myChart = echarts.init(dom);#}
+                {#                    var app = {};#}
+                {#                    option = null;#}
+                {#                    var base = +new Date(2014, 9, 3);#}
+                {#                    var oneDay = 24 * 3600 * 1000;#}
+                {#                    var date = [];#}
+                {##}
+                {#                    var data = [Math.random() * 150];#}
+                {#                    var now = new Date(base);#}
+                {##}
+                {#                    function addData(shift,number) {#}
+                {#                        now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/');#}
+                {#                        date.push(now);#}
+                {#                        data.push(number);#}
+                {##}
+                {#                        if (shift) {#}
+                {#                            date.shift();#}
+                {#                            data.shift();#}
+                {#                        }#}
+                {##}
+                {#                        now = new Date(+new Date(now) + oneDay);#}
+                {#                    }#}
+                {##}
+                {#                    addData(null,0);#}
+                {##}
+                {##}
+                {#                    goEasy.subscribe({#}
+                {#                        channel: "demo_channel",#}
+                {#                        onMessage: function (message) {#}
+                {#                            console.log("您有新消息：channel：" + message.channel + " 内容：" + message.content);#}
+                {#                            addData(null,parseInt(message.content));#}
+                {##}
+                {#                        },#}
+                {#                        onSuccess: function () {#}
+                {#                            console.log("Channel订阅成功。");#}
+                {#                        },#}
+                {#                        onFailed: function (error) {#}
+                {#                            console.log("Channel订阅失败, 错误编码：" + error.code + " 错误信息：" + error.content)#}
+                {#                        }#}
+                {#                    });#}
+                {##}
+                {##}
+                {##}
+                {#                    option = {#}
+                {#                        xAxis: {#}
+                {#                            type: 'category',#}
+                {#                            boundaryGap: false,#}
+                {#                            data: date#}
+                {#                        },#}
+                {#                        yAxis: {#}
+                {#                            boundaryGap: [0, '50%'],#}
+                {#                            type: 'value'#}
+                {#                        },#}
+                {#                        series: [#}
+                {#                            {#}
+                {#                                name:'成交',#}
+                {#                                type:'line',#}
+                {#                                smooth:true,#}
+                {#                                symbol: 'none',#}
+                {#                                stack: 'a',#}
+                {#                                areaStyle: {#}
+                {#                                    normal: {}#}
+                {#                                },#}
+                {#                                data: data#}
+                {#                            }#}
+                {#                        ]#}
+                {#                    };#}
+                {##}
+                {#                    app.timeTicket = setInterval(function () {#}
+                {##}
+                {#                        myChart.setOption({#}
+                {#                            xAxis: {#}
+                {#                                data: date#}
+                {#                            },#}
+                {#                            series: [{#}
+                {#                                name:'成交',#}
+                {#                                data: data#}
+                {#                            }]#}
+                {#                        });#}
+                {#                    }, 1000);;#}
+                {#                    if (option && typeof option === "object") {#}
+                {#                        myChart.setOption(option, true);#}
+                {#                    }#}
+                {#                </script>#}
+
+
+
+                {#                <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.3.2/echarts.common.js"></script>#}
+                {#                <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/3.3.2/echarts.min.js"></script>#}
+                {##}
+                {#                <div id="main-2" style="width: 600px;height:400px;" hidden="hidden"></div>#}
+                {#                <script type="text/javascript">#}
+                {#                    // 基于准备好的dom，初始化echarts实例#}
+                {#                    var myChart = echarts.init(document.getElementById('main-2'));#}
+                {##}
+                {#                    // 指定图表的配置项和数据#}
+                {#                    var option = {#}
+                {#                        title: {#}
+                {#                            text: 'ECharts 入门示例'#}
+                {#                        },#}
+                {#                        tooltip: {},#}
+                {#                        legend: {#}
+                {#                            data:['销量']#}
+                {#                        },#}
+                {#                        xAxis: {#}
+                {#                            data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]#}
+                {#                        },#}
+                {#                        yAxis: {},#}
+                {#                        series: [{#}
+                {#                            name: '销量',#}
+                {#                            type: 'bar',#}
+                {#                            data: [5, 20, 36, 10, 10, 20]#}
+                {#                        }]#}
+                {#                    };#}
+                {##}
+                {#                    // 使用刚指定的配置项和数据显示图表。#}
+                {#                    myChart.setOption(option);#}
+                {#                </script>#}
+                {##}
+                {#            </div>#}
+
+
+                <div>
+                    <!DOCTYPE html>
+                    <html style="height: 100%">
+                    <head>
+                        <meta charset="utf-8">
+                    </head>
+                    <body style="height: 100%; margin: 0">
+                    <div id="container" style="height: 100%"></div>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+                    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+                    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+                    <script type="text/javascript">
+                        var dom = document.getElementById("container");
+                        var myChart = echarts.init(dom);
+                        var app = {};
+                        option = null;
+                        var base = +new Date(2014, 9, 3);
+                        var oneDay = 24 * 3600 * 1000;
+                        var date = [];
+
+                        var data = [Math.random() * 150];
+                        var now = new Date(base);
+
+                        function addData(shift) {
+                            now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/');
+                            date.push(now);
+                            data.push((Math.random() - 0.4) * 10 + data[data.length - 1]);
+
+                            if (shift) {
+                                date.shift();
+                                data.shift();
+                            }
+
+                            now = new Date(+new Date(now) + oneDay);
+                        }
+
+                        for (var i = 1; i < 100; i++) {
+                            addData();
+                        }
+
+                        option = {
+                            xAxis: {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: date
+                            },
+                            yAxis: {
+                                boundaryGap: [0, '50%'],
+                                type: 'value'
+                            },
+                            series: [
+                                {
+                                    name:'成交',
+                                    type:'line',
+                                    smooth:true,
+                                    symbol: 'none',
+                                    stack: 'a',
+                                    areaStyle: {
+                                        normal: {}
+                                    },
+                                    data: data
+                                }
+                            ]
+                        };
+
+                        setInterval(function () {
+                            addData(true);
+                            myChart.setOption({
+                                xAxis: {
+                                    data: date
+                                },
+                                series: [{
+                                    name:'成交',
+                                    data: data
+                                }]
+                            });
+                        }, 500);;
+                        if (option && typeof option === "object") {
+                            myChart.setOption(option, true);
+                        }
+                    </script>
+                    </body>
+                    </html>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var kk=1;
+            sel.onchange=function(){
+                var pp=document.getElementById('main-'+kk);
+                pp.setAttribute("hidden",true);
+                var sel=document.getElementById("sel");
+                kk=sel.value;
+                var nn=sel.value;
+                var p=document.getElementById('main-'+nn);
+                p.removeAttribute("hidden");
+
+            }
+        </script>
+
+{% endblock  %}
