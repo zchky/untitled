@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <div>
+<form   method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<input type="file" value="upload"/>
+    <input type="submit" value="ok"/>
+</form>
+    </div>
+{% endblock content %}
