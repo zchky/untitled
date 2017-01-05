@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from .forms import PostForm
 from .forms import UploadFileForm
 from django.http import HttpResponseRedirect
+import os
 
 # Create your views here.
 def post_list(request):
@@ -46,7 +47,8 @@ def post_edit(request, pk):
 def upload_file(request):
     if request.method=='POST':
         form=UploadFileForm(request.POST,request.FILES)
-        print("here")
+        print(form)
+        print(form.is_valid())
         if form.is_valid():
             handle_uploaded_file(request.FILES['file'])
             return HttpResponseRedirect("ok")
@@ -55,7 +57,8 @@ def upload_file(request):
     return render(request, 'blog/lab/upload_file.html')
 
 def handle_uploaded_file(f):
-    with open('blog/lab/name.txt','wb+')as destination:
+    with open('name.txt','wb+')as destination:
+        print("ok")
         for chunk in f.chunks():
             destination.write(chunk)
     destination.close()
