@@ -7,4 +7,12 @@
     <input type="submit" value="ok"/>
 </form>
     </div>
+
+       <div>
+<form  action="blog/upload/" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<input type="file" name="files" value="upload" multiple/>
+    <input type="submit" value="ok"/>
+</form>
+    </div>
 {% endblock content %}

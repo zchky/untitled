@@ -5,6 +5,7 @@ from django.shortcuts import render,get_object_or_404
 from django.shortcuts import redirect
 from .forms import PostForm
 from .forms import UploadFileForm
+from .forms import FileFieldForm
 from django.http import HttpResponseRedirect
 import os
 
@@ -46,20 +47,17 @@ def post_edit(request, pk):
 
 def upload_file(request):
     if request.method=='POST':
-        form=UploadFileForm(request.POST,request.FILES)
-        print(form)
+        # form=UploadFileForm(request.POST,request.FILES)
+        form=UploadFileForm(request.POST,request.FILES.getlist("files"))
         print(form.is_valid())
         if form.is_valid():
-            handle_uploaded_file(request.FILES['file'])
-            return HttpResponseRedirect("ok")
+            for count,x in enumerate(request.FILES.getlist("files")):
+                handle_uploaded_file(count,x)
+            return render(request,'blog/lab/success.html')
     else:
         form=UploadFileForm()
     return render(request, 'blog/lab/upload_file.html')
 
-def handle_uploaded_file(f):
-    with open('name.txt','wb+')as destination:
-        print("ok")
-        for chunk in f.chunks():
-            destination.write(chunk)
-    destination.close()
+def handle_uploaded_file(count,f):
+        print(count)
 
