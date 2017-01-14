@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Post
 from django.utils import timezone
 from django.shortcuts import render,get_object_or_404
-from django.shortcuts import redirect
+from django.shortcuts import redirect,HttpResponse
 from .forms import PostForm
 from .forms import UploadFileForm
 from .forms import FileFieldForm
@@ -44,6 +44,9 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+def lab(request):
+    return render(request,'blog/lab.html')
 
 def upload_file(request):
     if request.method=='POST':
