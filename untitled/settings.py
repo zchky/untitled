@@ -126,6 +126,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-WECHAT_TOKEN = "woniu02141"
-WEIXIN_APPID = 'xxxxxxxxxxxxxxxxxxx'
+WECHAT_TOKEN = "xyziot"
+WEIXIN_APPID = 'wxda0a43d90b05c862'
 WEIXIN_APPSECRET = 'xxxxxxxxxxxxxxxxxxxxxxxxxx'

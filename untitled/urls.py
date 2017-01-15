@@ -22,5 +22,5 @@ urlpatterns = [
     # url(r'^polls/', include('polls.urls')),
     url(r'^pydrone/',include('pydrone.urls')),
     url(r'^blog/',include('blog.urls')),
-    url(r'^weixin',include('weixin.urls')),
+    url(r'^weixin/',include('weixin.urls')),
 ]
