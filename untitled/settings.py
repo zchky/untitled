@@ -118,8 +118,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
-
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -128,4 +127,4 @@ STATIC_URL = '/static/'
 
 WECHAT_TOKEN = "xyziot"
 WEIXIN_APPID = 'wxda0a43d90b05c862'
-WEIXIN_APPSECRET = 'xxxxxxxxxxxxxxxxxxxxxxxxxx'
+WEIXIN_APPSECRET = '109b355cc289b222369deebe907b3340'
