@@ -1,16 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
+
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
-# from zinnia.models.entry import Entry
-
 from wechat_sdk import WechatBasic,WechatConf
 from wechat_sdk.exceptions import ParseError
 from wechat_sdk.messages import TextMessage, VoiceMessage, ImageMessage, VideoMessage, LinkMessage, LocationMessage,EventMessage,ShortVideoMessage
+
 from untitled.settings import WECHAT_TOKEN, WEIXIN_APPID, WEIXIN_APPSECRET
-from . import info
-from . import functions
+from weixin.wechat import functions, info
 
 
 # wechat_instance = WechatBasic(
@@ -38,7 +36,7 @@ def wechat(request):
     signature = request.GET.get('signature')
     timestamp = request.GET.get('timestamp')
     nonce = request.GET.get('nonce')
-
+    # print(sys.path)
     print(wechat_instance.check_signature(signature=signature, timestamp=timestamp, nonce=nonce))
     if not wechat_instance.check_signature(
             signature=signature, timestamp=timestamp, nonce=nonce):
@@ -53,7 +51,7 @@ def wechat(request):
                 message = wechat_instance.get_message()
                 # print(message)
                 if isinstance(message, TextMessage):
-                    reply_text=functions.textswitch(message)
+                    reply_text= functions.textswitch(message)
                     response = wechat_instance.response_text(content=reply_text)
                 elif isinstance(message, VoiceMessage):
                     reply_text = 'voice'
@@ -71,7 +69,7 @@ def wechat(request):
                     if message.type == 'subscribe':
                         reply_text = info.message_subscribe
                     elif message.type == 'click':
-                        response=functions.draw_plot(message.key,wechat_instance)
+                        response= functions.draw_plot(message.key, wechat_instance)
                         # response=wechat_instance.response_image(media_id=media_id)
                 else:
                     reply_text = 'other'

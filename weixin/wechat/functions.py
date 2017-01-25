@@ -1,27 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.shortcuts import render
-from django.http.response import HttpResponse, HttpResponseBadRequest
-from django.views.decorators.csrf import csrf_exempt
 
+import datetime
+import json
+import os
+import random
+from urllib.request import urlopen
 
+import matplotlib.pyplot as plt
 from wechat_sdk import WechatBasic,WechatConf
-from wechat_sdk.exceptions import ParseError
-from wechat_sdk.messages import TextMessage, VoiceMessage, ImageMessage, VideoMessage, LinkMessage, LocationMessage,EventMessage,ShortVideoMessage
+
 from untitled.settings import WECHAT_TOKEN, WEIXIN_APPID, WEIXIN_APPSECRET
 from weixin.models import test_data
-import random
-
-import sys, json
-import urllib
-from urllib.request import urlopen
-import datetime
-import matplotlib.pyplot as plt
-import os
-
-from . import info
-
-
+from weixin.wechat import info
 
 conf=WechatConf(
 token=WECHAT_TOKEN,

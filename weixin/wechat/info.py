@@ -1,5 +1,3 @@
-from .functions import weather_api
-
 # -*- coding: utf-8 -*-
 
 
