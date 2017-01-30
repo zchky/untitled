@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+import django.core.exceptions as ex
 
 import datetime
 import json
 import os
 import random
 from urllib.request import urlopen
+import re
 
 import matplotlib.pyplot as plt
 from wechat_sdk import WechatBasic,WechatConf
 
 from untitled.settings import WECHAT_TOKEN, WEIXIN_APPID, WEIXIN_APPSECRET
-from weixin.models import test_data
+from weixin.models import test_data,test_user,test_device
 from weixin.wechat import info
+# from weixin.models import DoesNotExist
 
 conf=WechatConf(
 token=WECHAT_TOKEN,
@@ -24,7 +27,7 @@ encoding_ase_key='1pParL1h55XglOTuNjo2PQtFIRDdjHJMoP8wzTMet9S'
 #
 wechat_instance = WechatBasic(conf=conf)
 
-
+wait_list=[]
 
 def create_menu(menu):
     wechat_instance.create_menu(menu)
@@ -43,29 +46,72 @@ def weather_api():
     message="最低气温:%s,平均气温:%s，最高气温:%s，湿度:%s"%(content['main']['temp_min']-273.15,int(content['main']['temp']-273.15),content['main']['temp_max']-273.15,content['main']['humidity'])
     return str(message)
 
-def save_test_data(message):
+def save_test_data(message,bind_num):
     tem=random.randint(0,20)
     hum=random.randint(0,20)
-    test_data.objects.create(user=str(message.source),temperature=tem,humidity=hum)
+    somke_num = float(random.randint(0, 100)) / float(100)
+    gas_num = float(random.randint(0, 100)) / float(100)
+    test_data.objects.create(user=str(message.source),temperature=tem,humidity=hum,gas=gas_num,somke=somke_num)
     print(test_data.objects.all())
+
+def save_test_user(message,bind_num):
+    if test_device.objects.filter(device_id=bind_num):
+        device_id=test_device(device_id=bind_num)
+        test_user.objects.create(user=str(message.source),user_device_id=device_id)
+        return "save successfully"
+    else:
+        return "save failed,device id doesnot exist"
 
 
 def textswitch(message):
-    if message.content == '1':
-        reply_text = info.message_reply_1_test
-    elif message.content == '2':
-        reply_text = "待开发"
-    elif message.content=='3':
-        save_test_data(message)
-        reply_text= "save ok"
-    elif message.content=='4':
-         text=test_data.objects.filter(user=message.source,data__lt=datetime.datetime.now()).order_by('-data').values()[0]
-         print(text)
-         reply_text="尊敬的用户您好,当前时间%s,气温为%s,湿度为%s,"%(text['data'].strftime("%B %d,%Y"),text['temperature'],text['humidity'])
-         # test_data.objects.filter(data__lt=datetime.datetime.now()).values()[0]['data'].strftime("%B %d,%Y")
-    else:
-        reply_text = info.message_subscribe
-
+    reply_text = "尊敬的用户您好"
+    try:
+        com = re.compile(r'^(.*)-(.*)')
+        bind = com.match(message.content).groups()
+    except AttributeError as e:
+        print('error:',e)
+        bind=[1,2]
+    # try:
+    # r = test_user.objects.get(user=message.source).test_data_set.all().values()
+    if message.content == '0':
+        reply_text = info.message_reply_0_test
+    try:
+        if message.content=='1':
+             # text=test_data.objects.filter(user=message.source,data__lt=datetime.datetime.now()).order_by('-data').values()[0]
+            device = test_user.objects.filter(user=message.source)
+            for i in device:
+                dev=i.user_device_id.first().device_id
+                text = test_user.objects.filter(user=message.source,user_device_id=dev).first().test_data_set.order_by('-data').first()
+                print(text)
+                reply_text=reply_text+"设备%s:当前时间%s,气温为%s。 "%(dev,text.data.strftime("%B %d,%Y"),text.temperature)
+        elif message.content=='2':
+            r = test_user.objects.get(user=message.source).test_data_set.all().values()
+            for text in r:
+                reply_text = reply_text + "设备%s:当前时间%s,湿度为%s。 " % (
+                text['data_device_id_id'], text['data'].strftime("%B %d,%Y"), text['humidity'])
+        elif message.content=='3':
+            r = test_user.objects.get(user=message.source).test_data_set.all().values()
+            for text in r:
+                reply_text = reply_text + "设备%s:当前时间%s,烟雾浓度为%s。 " % (
+                    text['data_device_id_id'], text['data'].strftime("%B %d,%Y"), text['smoke'])
+        elif message.content=='4':
+            r = test_user.objects.get(user=message.source).test_data_set.all().values()
+            for text in r:
+                reply_text = reply_text + "设备%s:当前时间%s,可燃气体浓度为%s。 " % (
+                    text['data_device_id_id'], text['data'].strftime("%B %d,%Y"), text['gas'])
+    except ex.ObjectDoesNotExist as e:
+        e=' Error: '+str(e)
+        reply_text=reply_text+e
+        print('error',e)
+    if message.content=='save':
+        # save_test_data(message)
+        # reply_text= "save ok"
+        print(message.source)
+        print(message.id)
+        reply_text=reply_text+"save ok"
+    elif bind[0]=='bind':
+        bind_num=bind[1]
+        reply_text=save_test_user(message,bind_num)
     return  reply_text
 
 def draw_plot(keys,wechat):
@@ -73,9 +119,6 @@ def draw_plot(keys,wechat):
         info=test_data.objects.filter(data__lt=datetime.datetime.now(),data__gt=datetime.datetime.combine(datetime.date.today(),datetime.time(0,0,0,0)))
         y=[int(num['temperature']) for num in info.values()]
         x=[(time['data'].time().hour+time['data'].time().minute/60) for time in info.values()]
-        print(y)
-        print(x)
-        # x=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         plt.subplot(211)
         plt.title("Today's Temperature ")
         plt.xlabel('time/hr')
@@ -111,9 +154,6 @@ def draw_plot(keys,wechat):
         y=[int(num['temperature']) for num in info.values()]
         x=[(time['data'].date().day+time['data'].time().hour/24) for time in info.values()]
         x=[value-min(x) for value in x]
-        # print(y)
-        # print(x)
-        # x=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         plt.subplot(211)
         plt.title("Week's Temperature ")
         plt.xlabel('time/day')
@@ -151,8 +191,6 @@ def draw_plot(keys,wechat):
         y=[int(num['temperature']) for num in info.values()]
         x=[(time['data'].date().day+time['data'].time().hour/24) for time in info.values()]
         x=[value-min(x) for value in x]
-
-        # x=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
         plt.subplot(211)
         plt.title("Month's Temperature ")
         plt.xlabel('time/day')
@@ -188,4 +226,8 @@ def draw_plot(keys,wechat):
 
     elif keys=='V1001_GOOD':
         reply_text="宇宙无敌超级组合，啦啦啦啦啦"
+        return wechat.response_text(content=reply_text)
+
+    elif keys=='V1001_TODAY_MUSIC':
+        reply_text=info.message_reply_bind
         return wechat.response_text(content=reply_text)

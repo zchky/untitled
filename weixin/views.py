@@ -28,6 +28,7 @@ encoding_ase_key='1pParL1h55XglOTuNjo2PQtFIRDdjHJMoP8wzTMet9S'
 wechat_instance = WechatBasic(conf=conf)
 
 
+
 @csrf_exempt
 def wechat(request):
     # if request.method == 'GET':
@@ -53,18 +54,8 @@ def wechat(request):
                 if isinstance(message, TextMessage):
                     reply_text= functions.textswitch(message)
                     response = wechat_instance.response_text(content=reply_text)
-                elif isinstance(message, VoiceMessage):
-                    reply_text = 'voice'
-                elif isinstance(message, ImageMessage):
-                    reply_text = 'image'
-                elif isinstance(message, LinkMessage):
-                    reply_text = 'link'
-                elif isinstance(message, LocationMessage):
-                    reply_text = 'location'
-                elif isinstance(message, VideoMessage):
-                    reply_text = 'video'
-                elif isinstance(message, ShortVideoMessage):
-                    reply_text = 'shortvideo'
+                # elif isinstance(message, VoiceMessage):
+                #     reply_text = 'voice'
                 elif isinstance(message, EventMessage):
                     if message.type == 'subscribe':
                         reply_text = info.message_subscribe
