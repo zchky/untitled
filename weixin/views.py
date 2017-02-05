@@ -38,7 +38,7 @@ def wechat(request):
     timestamp = request.GET.get('timestamp')
     nonce = request.GET.get('nonce')
     # print(sys.path)
-    print(wechat_instance.check_signature(signature=signature, timestamp=timestamp, nonce=nonce))
+    # print(wechat_instance.check_signature(signature=signature, timestamp=timestamp, nonce=nonce))
     if not wechat_instance.check_signature(
             signature=signature, timestamp=timestamp, nonce=nonce):
         return HttpResponseBadRequest('Verify Failed')
@@ -61,6 +61,9 @@ def wechat(request):
                         reply_text = info.message_subscribe
                     elif message.type == 'click':
                         response= functions.draw_plot(message.key, wechat_instance)
+                        # print(response)
+                        # if isinstance(response,str):
+                        #     response=wechat_instance.response_text(content=response)
                         # response=wechat_instance.response_image(media_id=media_id)
                 else:
                     reply_text = 'other'
