@@ -1,18 +1,114 @@
 {% extends 'blog/base.html' %}
-{% block content %}
-    <div>
-<form  action="blog/upload/" method="post" enctype="multipart/form-data">
-{% csrf_token %}
-<input type="file" name="file" value="upload"/>
-    <input type="submit" value="ok"/>
-</form>
-    </div>
 
-       <div>
-<form  action="blog/upload/" method="post" enctype="multipart/form-data">
-{% csrf_token %}
-<input type="file" name="files" value="upload" multiple/>
-    <input type="submit" value="ok"/>
-</form>
+{% block content %}
+    <div class="container-fluid">
+
+        <hr class="divider">
+
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                            <label for="exampleInputFile">original image preview</label>
+
+                <img style="height: 300px; width: 300px " id="output",src="#"/>
+            </div>
+
+            <div class="col-md-2">
+
+                <form  action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
+
+                    <input type="file"  id="imgInp"/>
+{#                    <input type="submit" value="ok"/>#}
+                          <button type="submit" class="btn btn-default">Submit</button>
+
+                        </div>
+                </form>
+                <button  class="btn btn-primary" id="test">Get image</button>
+
+            </div>
+
+            <div class="col-md-3">
+                <label for="exampleInputFile">objection detection image</label>
+
+                <img style="height: 300px; width: 300px " id="blah" src="#" alt="your image" />
+            </div>
+
+
+        </div>
     </div>
+        <hr class="divider">
+
+    <script>
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#imgInp").change(function(){
+            readURL(this);
+        });
+    </script>
+
+    <script>
+        var a = $('#test');
+        a.click(function () {
+            alert('Hello!');
+            $.ajax({
+                url: "/blog/scene_update_url/",
+                type: "POST",
+                {#                data:{host:host,port:port},#}
+                success: function (data) {
+                    {#                            data = JSON.parse(data);#}
+                    if (data == "ok") {
+                        alert("success");
+                    } else {
+                        alert("fail");
+                    }
+                }
+
+
+            })
+        });
+    </script>
+
+
+    {#       <div>#}
+    {#<form  action="blog/upload/" method="post" enctype="multipart/form-data">#}
+    {#{% csrf_token %}#}
+    {#<input type="file" name="files" value="upload" multiple/>#}
+    {#    <input type="submit" value="ok"/>#}
+    {#</form>#}
+    {#    </div>#}
 {% endblock content %}
+
+
+
+{#    function getSceneId() {#}
+{#            var post_data = {#}
+{#                "name": scece_name,#}
+{#            };#}
+
+{#            $.ajax({#}
+{#                url: {% url 'scene_update_url' %},#}
+{#                type: "POST",#}
+{#                data: post_data,#}
+{#                success: function (data) {#}
+{#                    data = JSON.parse(data);#}
+{#                    if (data["status"] == 1) {#}
+{#                        setSceneTd(data["result"], scece_name, td);#}
+{#                    } else {#}
+{#                        alert(data["result"]);#}
+{#                    }#}
+{#                }#}
+{#            });#}
+{#        }#}

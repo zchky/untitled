@@ -1,12 +1,41 @@
 {% extends 'blog/base.html' %}
+
 {% block content %}
- {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                {{ post.published_date }}
+
+    <div class="container-fluid">
+              <div class="row">
+ <hr class="divider">
+</div>
+        <div class="row">
+    <div class="col-md-8" style="padding-left: 80px">
+        <div>
+            {% for post in posts %}
+            <div class="post">
+                <div class="date">
+                    {{ post.published_date }}
+                </div>
+                <h1><a href="{% url 'post_detail' pk=post.pk %}" style="font-family: 'Times New Roman'" >{{ post.title }}</a></h1>
+                    <p style="font-family:'Times New Roman'">{{ post.text|safe|truncatewords_html:10 }}</p>
+                <hr class="divider">
             </div>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
+        {% endfor %}
         </div>
-    {% endfor %}
+    </div>
+    </div>
+
+
+    </div>
+
+{#    <div>#}
+{#        {% for post in posts %}#}
+{#            <div class="post-preview">#}
+{#                <a href=href="{% url 'post_detail' pk=post.pk %}">#}
+{#                    <h2 class="post-title"> {{ post.title }} </h2>#}
+{#                    <h3 class="post-subtitle"> {{ post.text|safe|truncatewords_html:10 }} </h3>#}
+{#                </a>#}
+{#                <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> {{ post.published_date }}</p>#}
+{#            </div>#}
+{#            <hr class="divider">#}
+{#        {% endfor %}#}
+{#    </div>#}
 {% endblock content %}

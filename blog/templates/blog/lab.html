@@ -2,122 +2,18 @@
 
 {% load static %}
 {% block content %}
-
-
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-{#    <img src="{% static 'blog/img/background.jpg' %}">#}
-    <div id="main2" style="height:100%;width: 100%;"></div>
-{#    <script type="text/javascript" src={% static 'blog/js/test.js' %}></script>#}
-    <script type="text/javascript" src={% static 'blog/js/echarts.js' %}></script>
-    <script type="text/javascript" src="http://data-visual.cn/datav/src/js/echarts/extension/echarts-wordcloud.min.js"></script>
-    <script type="text/javascript">
-        // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('main2'));
-
-        // 指定图表的配置项和数据
-        var option = {
-    title: {
-        text: "Key Words for fun",
-        link: 'https://github.com/ecomfe/echarts-wordcloud',
-        subtext: 'data-visual.cn',
-        sublink: 'http://data-visual.cn',
-    },
-    tooltip: {},
-    series: [{
-        type: 'wordCloud',
-        gridSize: 20,
-        sizeRange: [12, 50],
-        rotationRange: [0, 0],
-        shape: 'circle',
-        textStyle: {
-            normal: {
-                color: function() {
-                    return 'rgb(' + [
-                        Math.round(Math.random() * 160),
-                        Math.round(Math.random() * 160),
-                        Math.round(Math.random() * 160)
-                    ].join(',') + ')';
-                }
-            },
-            emphasis: {
-                shadowBlur: 10,
-                shadowColor: '#333'
-            }
-        },
-        data: [{
-            name: 'Sam S Club',
-            value: 10000,
-            textStyle: {
-                normal: {
-                    color: 'black'
-                },
-                emphasis: {
-                    color: 'red'
-                }
-            }
-        }, {
-            name: 'image process',
-            value: 6181
-        }, {
-            name: 'Amy Schumer',
-            value: 4386
-        }, {
-            name: 'Jurassic World',
-            value: 4055
-        }, {
-            name: 'Charter Communications',
-            value: 2467
-        }, {
-            name: 'Chick Fil A',
-            value: 2244
-        }, {
-            name: 'Planet Fitness',
-            value: 1898
-        }, {
-            name: 'Pitch Perfect',
-            value: 1484
-        }, {
-            name: 'Express',
-            value: 1112
-        }, {
-            name: 'Home',
-            value: 965
-        }, {
-            name: 'Johnny Depp',
-            value: 847
-        }, {
-            name: 'Lena Dunham',
-            value: 582
-        }, {
-            name: 'Lewis Hamilton',
-            value: 555
-        }, {
-            name: 'KXAN',
-            value: 550
-        }, {
-            name: 'Mary Ellen Mark',
-            value: 462
-        }, {
-            name: 'Farrah Abraham',
-            value: 366
-        }, {
-            name: 'Rita Ora',
-            value: 360
-        }, {
-            name: 'Serena Williams',
-            value: 282
-        }, {
-            name: 'NCAA baseball tournament',
-            value: 273
-        }, {
-            name: 'Point Break',
-            value: 265
-        }]
-    }]
-};
-
-        // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
-    </script>
+   <div class="container-fluid" >
+          <div class="row">
+ <hr class="divider">
+</div>
+    <div class="row"  >
+        <div class="col-md-2 col-md-offset-4 text-center" ><i class="fa fa-paint-brush" aria-hidden="true" style="font-size: 250%"></i><p style="word-break:break-all;">风格迁移</p></div>
+        <div class="col-md-2 text-center"><i class="fa fa-eye" aria-hidden="true" style="font-size: 250%;"></i>
+            <p style="word-break:break-all;">物体识别</p></div>
+    </div>
+       <div class="row">
+ <hr class="divider">
+</div>
+</div>
 
 {% endblock content %}

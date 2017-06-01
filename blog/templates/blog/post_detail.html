@@ -1,15 +1,82 @@
-   {% extends 'blog/base.html' %}
+{% extends 'blog/base.html' %}
 
-    {% block content %}
-        <div class="post">
-            {% if post.published_date %}
-                <div class="date">
-                    {{ post.published_date }}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <hr class="divider">
+            <div class="row">
+                <div class="col-md-8" style="padding-left: 80px">
+                    <div class="post">
+                        {% if post.published_date %}
+                            <div class="date">
+                                {{ post.published_date }}
+                            </div>
+                        {% endif %}
+                        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+
+                        <h1>{{ post.title }}</h1>
+                        <p>{{ post.text|safe }}</p>
+                    </div>
+                    <hr class="divider">
+
+
+                    <div class="row">
+                        <form action="{% url 'comments:post_comment' post_pk=post.pk %}" method="post" class="comment-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="{{ form.name.id_for_label }}">Name:</label>
+                                    {{ form.name }}
+                                    {{ form.name.errors }}
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="{{ form.email.id_for_label }}">Email:</label>
+                                    {{ form.email }}
+                                    {{ form.name.errors }}
+                                </div>
+                            </div>
+
+                            {#                                <div class="col-md-3">#}
+                            {#                                    <label for="{{ form.url.id_for_label }}">Url:</label>#}
+                            {#                                    {{ form.url }}#}
+                            {#                                    {{ form.url.errors }}#}
+                            {#                                </div>#}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="{{ form.text.id_for_label }}">Comment:</label>
+                                </div>
+                            </div>
+                            <div class="row"></div>
+                            <div class="row">
+                            <div class="col-md-8 form-group"">
+                                {{ form.text }}
+                                {{ form.text.errors }}
+                                <button type="submit" class="btn btn-default" style="margin-bottom: 25px">publish</button>
+                                {#                  <button class="btn btn-default" href="{% url 'post_comment' post_pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></button>#}
+                            </div>
+                                </div>
+                            <!-- row -->
+                        </form>
+                    </div>
+                    <hr class="divider">
+
+                    <div class="comment-list">
+                        <h3>Comments</h3>
+                        <ul class="list-unstyled">
+                            {% for comment in comment_list %}
+                                <li class="comment-item">
+                                    <span class="name">{{ comment.name }}</span>
+                                    <time class="date">{{ comment.created_time }}</time>
+                                    <div class="text">
+                                        {{ comment.text }}
+                                    </div>
+                                </li>
+                            {% empty %}
+                                NO Comments
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
-            {% endif %}
-            <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-
-            <h1>{{ post.title }}</h1>
-            <p>{{ post.text|linebreaksbr }}</p>
+            </div>
         </div>
-    {% endblock %}
+{% endblock %}
